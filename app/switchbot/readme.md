@@ -5,3 +5,6 @@
 ```bash  
 docker compose up --build
 ```
+
+### Token
+Use .env
