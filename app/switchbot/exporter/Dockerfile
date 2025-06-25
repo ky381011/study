@@ -2,11 +2,6 @@ FROM golang:1.20-alpine
 
 WORKDIR /app
 
-COPY go.mod ./
-RUN go mod tidy
+RUN apk add --no-cache bash git nodejs npm
 
-COPY . .
-
-RUN go build -o app .
-
-CMD ["./app"]
+CMD ["sleep", "infinity"]

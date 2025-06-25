@@ -1,11 +1,9 @@
 {
-  "dockerComposeFile": "docker-compose.yml",
-  "service": "golang",
+  "dockerComposeFile": "../docker-compose.yaml",
+  "service": "exporter",
   "workspaceFolder": "/app",
   "customizations": {
-    // Configure properties specific to VS Code.
     "vscode": {
-      // Add the IDs of extensions you want installed when the container is created.
       "extensions": [
         "golang.go",
         "mhutchie.git-graph"
