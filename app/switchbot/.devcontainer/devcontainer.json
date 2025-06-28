@@ -1,5 +1,5 @@
 {
-  "dockerComposeFile": "../docker-compose.yaml",
+  "dockerComposeFile": "../docker-compose.dev.yaml",
   "service": "go",
   "workspaceFolder": "/app",
   "customizations": {
