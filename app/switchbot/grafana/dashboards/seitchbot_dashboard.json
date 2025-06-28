@@ -1,0 +1,35 @@
+{
+  "id": null,
+  "uid": "switchbot",
+  "title": "SwitchBot Dashboard",
+  "timezone": "browser",
+  "panels": [
+    {
+      "type": "graph",
+      "title": "Temperature (°C)",
+      "targets": [
+        {
+          "expr": "switchbot_temperature_celsius",
+          "legendFormat": "Temperature",
+          "refId": "A"
+        }
+      ],
+      "gridPos": { "x": 0, "y": 0, "w": 12, "h": 8 }
+    },
+    {
+      "type": "graph",
+      "title": "Humidity (%)",
+      "targets": [
+        {
+          "expr": "switchbot_humidity_percent",
+          "legendFormat": "Humidity",
+          "refId": "B"
+        }
+      ],
+      "gridPos": { "x": 12, "y": 0, "w": 12, "h": 8 }
+    }
+  ],
+  "schemaVersion": 30,
+  "version": 1,
+  "refresh": "10s"
+}
