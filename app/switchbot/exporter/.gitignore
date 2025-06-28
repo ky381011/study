@@ -1,3 +1,4 @@
 /src/secret/*.json
 /src/secret/get_devices
 !/src/secret/get_device.go
+.env

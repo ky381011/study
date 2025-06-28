@@ -7,6 +7,10 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"time"
+
+	"github.com/prometheus/client_golang/prometheus"
+	"github.com/prometheus/client_golang/prometheus/promhttp"
 )
 
 const baseURL = "https://api.switch-bot.com/v1.1"
@@ -21,6 +25,27 @@ type Hub2Status struct {
 	} `json:"body"`
 }
 
+// Prometheus metrics
+var (
+	temperatureGauge = prometheus.NewGauge(
+		prometheus.GaugeOpts{
+			Name: "switchbot_temperature_celsius",
+			Help: "Current temperature reported by SwitchBot Hub 2.",
+		},
+	)
+	humidityGauge = prometheus.NewGauge(
+		prometheus.GaugeOpts{
+			Name: "switchbot_humidity_percent",
+			Help: "Current humidity reported by SwitchBot Hub 2.",
+		},
+	)
+)
+
+func init() {
+	prometheus.MustRegister(temperatureGauge)
+	prometheus.MustRegister(humidityGauge)
+}
+
 func getHub2Status(token string, deviceID string) (*Hub2Status, error) {
 	url := fmt.Sprintf("%s/devices/%s/status", baseURL, deviceID)
 
@@ -31,7 +56,7 @@ func getHub2Status(token string, deviceID string) (*Hub2Status, error) {
 	req.Header.Set("Authorization", token)
 	req.Header.Set("Content-Type", "application/json")
 
-	client := &http.Client{}
+	client := &http.Client{Timeout: 10 * time.Second}
 	resp, err := client.Do(req)
 	if err != nil {
 		return nil, err
@@ -51,6 +76,19 @@ func getHub2Status(token string, deviceID string) (*Hub2Status, error) {
 	return &status, nil
 }
 
+func updateMetrics(token, deviceID string) {
+	status, err := getHub2Status(token, deviceID)
+	if err != nil {
+		log.Printf("メトリクス更新失敗: %v", err)
+		return
+	}
+
+	temperatureGauge.Set(status.Body.Temperature)
+	humidityGauge.Set(status.Body.Humidity)
+
+	log.Printf("メトリクス更新完了 - 温度: %.1f°C, 湿度: %.1f%%", status.Body.Temperature, status.Body.Humidity)
+}
+
 func main() {
 	token := os.Getenv("SWITCHBOT_TOKEN")
 	deviceID := os.Getenv("SWITCHBOT_HUB2_ID")
@@ -59,11 +97,19 @@ func main() {
 		log.Fatal("SWITCHBOT_TOKEN または SWITCHBOT_HUB2_ID が未設定です")
 	}
 
-	status, err := getHub2Status(token, deviceID)
-	if err != nil {
-		log.Fatalf("ハブ2のステータス取得に失敗: %v", err)
-	}
+	// 初回メトリクス更新
+	updateMetrics(token, deviceID)
 
-	fmt.Printf("🌡 温度: %.1f°C\n", status.Body.Temperature)
-	fmt.Printf("💧 湿度: %.1f%%\n", status.Body.Humidity)
+	// メトリクス定期更新 (例: 60秒ごと)
+	go func() {
+		for {
+			updateMetrics(token, deviceID)
+			time.Sleep(60 * time.Second)
+		}
+	}()
+
+	// HTTPサーバ開始 (/metrics)
+	http.Handle("/metrics", promhttp.Handler())
+	log.Println("Exporter が :2112 で起動しました (/metrics)")
+	log.Fatal(http.ListenAndServe(":2112", nil))
 }

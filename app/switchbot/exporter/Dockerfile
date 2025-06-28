@@ -1,7 +1,12 @@
-FROM golang:1.20-alpine
+FROM golang:1.22-alpine
 
 WORKDIR /app
 
-RUN apk add --no-cache bash curl git nodejs npm
+COPY src/go.mod src/go.sum ./
+RUN go mod download
 
-CMD ["sleep", "infinity"]
+COPY src .
+
+RUN go build -o exporter .
+
+CMD ["./exporter"]
