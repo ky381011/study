@@ -1,6 +1,6 @@
 {
   "dockerComposeFile": "../docker-compose.yaml",
-  "service": "exporter",
+  "service": "go",
   "workspaceFolder": "/app",
   "customizations": {
     "vscode": {
