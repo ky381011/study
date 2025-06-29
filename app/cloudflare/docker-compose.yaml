@@ -3,3 +3,7 @@ services:
     image: cloudflare/cloudflared:latest
     container_name: cloudflared
     command: tunnel --no-autoupdate run --token $CLOUDFLARED_TOKEN
+    volumes:
+      - type: bind
+        source: ./config.yaml
+        target: /etc/cloudflared/config.yml
