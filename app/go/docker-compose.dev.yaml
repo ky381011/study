@@ -1,0 +1,10 @@
+services:
+  go:
+    build:
+      context: ./container
+      dockerfile: Dockerfile
+    container_name: go
+    volumes:
+      - type: bind
+        source: ./go/src
+        target: /app
