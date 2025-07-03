@@ -3,7 +3,7 @@ services:
     build:
       context: ./container
       dockerfile: Dockerfile
-    container_name: go
+    container_name: go_study
     volumes:
       - type: bind
         source: ./go/src
