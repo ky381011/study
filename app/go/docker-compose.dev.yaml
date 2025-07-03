@@ -6,5 +6,5 @@ services:
     container_name: go_study
     volumes:
       - type: bind
-        source: ./go/src
+        source: ./container/src
         target: /app
