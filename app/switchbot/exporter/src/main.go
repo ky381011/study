@@ -142,7 +142,7 @@ func getPlugMiniStatus(token, deviceID string) (*PlugMiniStatus, error) {
 	return &status, nil
 }
 
-func updateMetrics(token, deviceID string) {
+func updateMetrics(token, deviceID string, plugIDs []string) {
 	status, err := getHub2Status(token, deviceID)
 	if err != nil {
 		log.Printf("メトリクス更新失敗: %v", err)
@@ -153,23 +153,42 @@ func updateMetrics(token, deviceID string) {
 	humidityGauge.Set(status.Body.Humidity)
 
 	log.Printf("メトリクス更新完了 - 温度: %.1f°C, 湿度: %.1f%%", status.Body.Temperature, status.Body.Humidity)
+
+	// Plug Mini の電力
+	for _, id := range plugIDs {
+		status, err := getPlugMiniStatus(token, id)
+		if err != nil {
+			log.Printf("PlugMini (%s) メトリクス更新失敗: %v", id, err)
+			continue
+		}
+		plugPowerGauge.WithLabelValues(id).Set(status.Body.Weight)
+		plugVoltageGauge.WithLabelValues(id).Set(status.Body.Voltage)
+		plugElectricityGauge.WithLabelValues(id).Set(status.Body.ElectricityOfDay)
+
+		log.Printf("PlugMini (%s) - 消費電力: %.1fW, 電圧: %.1fV, 日消費電力: %.1fWh",
+			id, status.Body.Weight, status.Body.Voltage, status.Body.ElectricityOfDay)
+	}
 }
 
 func main() {
 	token := os.Getenv("SWITCHBOT_TOKEN")
-	deviceID := os.Getenv("SWITCHBOT_HUB2_ID")
+	hub2ID := os.Getenv("SWITCHBOT_HUB2_ID")
+	plug1ID := os.Getenv("SWITCHBOT_PLUG_MINI_MAIN_ID")
+	plug2ID := os.Getenv("SWITCHBOT_PLUG_MINI_SECOND_ID")
 
-	if token == "" || deviceID == "" {
-		log.Fatal("SWITCHBOT_TOKEN または SWITCHBOT_HUB2_ID が未設定です")
+	if token == "" || hub2ID == "" {
+		log.Fatal("SWITCHBOT_TOKEN などが未設定です")
 	}
 
+	plugIDs := []string{plug1ID, plug2ID}
+
 	// 初回メトリクス更新
-	updateMetrics(token, deviceID)
+	updateMetrics(token, hub2ID, plugIDs)
 
 	// メトリクス定期更新 (例: 60秒ごと)
 	go func() {
 		for {
-			updateMetrics(token, deviceID)
+			updateMetrics(token, hub2ID, plugIDs)
 			time.Sleep(60 * time.Second)
 		}
 	}()
