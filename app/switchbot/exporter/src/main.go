@@ -113,6 +113,35 @@ func getHub2Status(token string, deviceID string) (*Hub2Status, error) {
 	return &status, nil
 }
 
+func getPlugMiniStatus(token, deviceID string) (*PlugMiniStatus, error) {
+	url := fmt.Sprintf("%s/devices/%s/status", baseURL, deviceID)
+	req, err := http.NewRequest("GET", url, nil)
+	if err != nil {
+		return nil, err
+	}
+	req.Header.Set("Authorization", token)
+	req.Header.Set("Content-Type", "application/json")
+
+	client := &http.Client{Timeout: 10 * time.Second}
+	resp, err := client.Do(req)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+
+	bodyBytes, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		return nil, err
+	}
+
+	var status PlugMiniStatus
+	if err := json.Unmarshal(bodyBytes, &status); err != nil {
+		return nil, err
+	}
+
+	return &status, nil
+}
+
 func updateMetrics(token, deviceID string) {
 	status, err := getHub2Status(token, deviceID)
 	if err != nil {
