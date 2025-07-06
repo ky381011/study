@@ -78,6 +78,9 @@ var (
 func init() {
 	prometheus.MustRegister(temperatureGauge)
 	prometheus.MustRegister(humidityGauge)
+	prometheus.MustRegister(plugPowerGauge)
+	prometheus.MustRegister(plugVoltageGauge)
+	prometheus.MustRegister(plugElectricityGauge)
 }
 
 func getHub2Status(token string, deviceID string) (*Hub2Status, error) {
