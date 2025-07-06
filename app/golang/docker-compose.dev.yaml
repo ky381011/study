@@ -8,3 +8,20 @@ services:
       - type: bind
         source: ./go/src
         target: /app
+    environment:
+      - SWITCHBOT_TOKEN=${SWITCHBOT_TOKEN}
+      - SWITCHBOT_HUB2_ID=${SWITCHBOT_HUB2_ID}
+
+  mysql:
+    build: ./sql/
+    volumes:
+      - type: bind
+        source: ./sql/initdb.d
+        target: /docker-entrypoint-initdb.d
+      - type: bind
+        source: ./sql/db
+        target: /var/lib/mysql
+    image: mysqlapp
+    container_name: "mysql"
+    environment:
+      - MYSQL_ROOT_PASSWORD=pass
