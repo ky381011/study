@@ -25,6 +25,19 @@ type Hub2Status struct {
 	} `json:"body"`
 }
 
+type PlugMiniStatus struct {
+	StatusCode int    `json:"statusCode"`
+	Message    string `json:"message"`
+	Body       struct {
+		DeviceId         string  `json:"deviceId"`
+		Power            string  `json:"power"`            // "on"/"off"
+		ElectricCurrent  float64 `json:"electricCurrent"`  // A
+		ElectricityOfDay float64 `json:"electricityOfDay"` // Wh
+		Voltage          float64 `json:"voltage"`          // V
+		Weight           float64 `json:"weight"`           // W
+	} `json:"body"`
+}
+
 // Prometheus metrics
 var (
 	temperatureGauge = prometheus.NewGauge(
