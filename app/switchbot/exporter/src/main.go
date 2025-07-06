@@ -52,6 +52,27 @@ var (
 			Help: "Current humidity reported by SwitchBot Hub 2.",
 		},
 	)
+	plugPowerGauge = prometheus.NewGaugeVec(
+		prometheus.GaugeOpts{
+			Name: "switchbot_plug_power_watts",
+			Help: "Current power consumption (W) of Plug Mini.",
+		},
+		[]string{"device"},
+	)
+	plugVoltageGauge = prometheus.NewGaugeVec(
+		prometheus.GaugeOpts{
+			Name: "switchbot_plug_voltage_volts",
+			Help: "Voltage (V) measured by Plug Mini.",
+		},
+		[]string{"device"},
+	)
+	plugElectricityGauge = prometheus.NewGaugeVec(
+		prometheus.GaugeOpts{
+			Name: "switchbot_plug_electricity_day_wh",
+			Help: "Electricity usage (Wh) of the day by Plug Mini.",
+		},
+		[]string{"device"},
+	)
 )
 
 func init() {
