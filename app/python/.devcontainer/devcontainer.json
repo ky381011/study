@@ -1,0 +1,13 @@
+{
+  "dockerComposeFile": "../docker-compose.dev.yaml",
+  "service": "go",
+  "workspaceFolder": "/app",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "mhutchie.git-graph",
+        "ms-python.python"
+      ]
+    }
+  }
+}

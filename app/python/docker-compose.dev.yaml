@@ -1,0 +1,16 @@
+services:
+  go:
+    build:
+      context: ./py
+      dockerfile: Dockerfile
+    container_name: python_study
+    volumes:
+      - type: bind
+        source: ./py/src
+        target: /app
+    environment:
+      - SWITCHBOT_TOKEN=${SWITCHBOT_TOKEN}
+      - SWITCHBOT_HUB2_ID=${SWITCHBOT_HUB2_ID}
+      - SWITCHBOT_PLUG_MINI_MAIN_ID=${SWITCHBOT_PLUG_MINI_MAIN_ID}
+      - SWITCHBOT_PLUG_MINI_SECOND_ID=${SWITCHBOT_PLUG_MINI_SECOND_ID}
+      - OPEN_WEATHER_API=${OPEN_WEATHER_API}
