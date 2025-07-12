@@ -6,7 +6,7 @@ import hashlib
 import base64
 import requests
 
-class GetSwitchbotStatus:
+class GetSwitchbotStatus():
     """
     Getting Hub 2 status using SwitchBot API v1.1
     """
