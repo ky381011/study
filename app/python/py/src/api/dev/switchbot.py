@@ -7,7 +7,7 @@ import base64
 import requests
 
 
-class GetHub2Status:
+class GetSwitchBotStatus:
     """
     Getting Hub 2 status using SwitchBot API v1.1
     """
@@ -53,7 +53,10 @@ class GetHub2Status:
 import json
 
 if __name__ == "__main__":
-    device_id = os.environ["SWITCHBOT_HUB2_ID"]  # SwitchBot Hub 2 のデバイスID
-    hub_status = GetHub2Status(device_id)
-    status = hub_status.get_status()
-    print(json.dumps(status, indent=2))
+    hub2_id = os.environ["SWITCHBOT_HUB2_ID"]
+    plug_mini_id = os.environ["SWITCHBOT_PLUG_MINI_MAIN_ID"]
+    hub2_status = GetSwitchBotStatus(hub2_id).get_status()
+    plug_mini_status = GetSwitchBotStatus(plug_mini_id).get_status()
+
+    print(json.dumps(hub2_status, indent=2))
+    print(json.dumps(plug_mini_status, indent=2))
