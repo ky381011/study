@@ -6,7 +6,9 @@ import hashlib
 import base64
 import requests
 
-class GetSwitchbotStatus():
+from GetStatus import GetStatus
+
+class GetSwitchbotStatus(GetStatus):
     """
     Getting Hub 2 status using SwitchBot API v1.1
     """
@@ -38,7 +40,7 @@ class GetSwitchbotStatus():
             "nonce": self.nonce,
         }
 
-    def get_status(self) -> dict:
+    def getStatus(self) -> dict:
         url = f"https://api.switch-bot.com/v1.1/devices/{self.device_id}/status"
         headers = self._create_header()
 
@@ -54,8 +56,8 @@ import json
 if __name__ == "__main__":
     hub2_id = os.environ["SWITCHBOT_HUB2_ID"]
     plug_mini_id = os.environ["SWITCHBOT_PLUG_MINI_MAIN_ID"]
-    hub2_status = GetSwitchbotStatus(hub2_id).get_status()
-    plug_mini_status = GetSwitchbotStatus(plug_mini_id).get_status()
+    hub2_status = GetSwitchbotStatus(hub2_id).getStatus()
+    plug_mini_status = GetSwitchbotStatus(plug_mini_id).getStatus()
 
     print(json.dumps(hub2_status, indent=2))
     print(json.dumps(plug_mini_status, indent=2))
