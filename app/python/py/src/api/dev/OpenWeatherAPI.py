@@ -1,8 +1,9 @@
 import requests
 import os
 
+from .GetStatus import GetStatus
 
-class WeatherFetcher():
+class WeatherFetcher(GetStatus):
     """
     OpenWeatherMap API を使って現在の天気情報を取得するクラス
     """

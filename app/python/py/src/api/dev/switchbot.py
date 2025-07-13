@@ -6,7 +6,7 @@ import hashlib
 import base64
 import requests
 
-from GetStatus import GetStatus
+from .GetStatus import GetStatus
 
 class GetSwitchbotStatus(GetStatus):
     """
