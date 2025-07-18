@@ -23,7 +23,7 @@ async def root():
     return {"message": "Hello World"}
 
 @app.get("/switchbot")
-async def root():
+async def get_temperature():
     return {"message": temperature}
 
 if __name__ == "__main__":
