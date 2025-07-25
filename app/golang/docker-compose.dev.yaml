@@ -29,3 +29,16 @@ services:
     container_name: "mysql"
     environment:
       - MYSQL_ROOT_PASSWORD=pass
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    ports:
+     - '9090:9090'
+    volumes:
+      - type: bind
+        source: ./prometheus/prometheus.yaml
+        target: /etc/prometheus/prometheus.yml
+      - type: bind
+        source: ./data
+        target: /etc/prometheus/data
