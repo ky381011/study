@@ -11,3 +11,11 @@ func String2Code(s string) int {
 	}
 	return i
 }
+
+func Code2String(i int) string {
+	var s string
+	if 0 <= i && i < 128 {
+		s = string(rune(i))
+	}
+	return s
+}

@@ -12,4 +12,5 @@ func main() {
 
 	// Check ascii
 	fmt.Println(mypkg.String2Code("A"))
+	fmt.Println(mypkg.Code2String(123))
 }
