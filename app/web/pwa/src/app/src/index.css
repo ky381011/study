@@ -1,3 +1,10 @@
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  box-sizing: border-box;
+}
+
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -24,13 +31,12 @@ a:hover {
 
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
+  padding: 0;
   min-width: 320px;
   min-height: 100vh;
-
-  --bg-color: linear-gradient(to right, #e2e2e2, #c9d6ff);
-  background: var(--bg-color);
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
 }
 
 h1 {

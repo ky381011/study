@@ -32,13 +32,15 @@ function App() {
         minHeight: "100vh",
         display: "flex",
         flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "space-between",
+        width: "100%"
       }}
     >
       <Header isDark={gradients[selected].dark} />
       <Body 
         selected={selected}
         onThemeChange={(theme) => setSelected(theme as keyof typeof gradients)}
-        gradients={gradients}
       />
       <Footer isDark={gradients[selected].dark} />
     </div>
