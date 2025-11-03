@@ -5,11 +5,24 @@
   box-sizing: border-box;
 }
 
-html, body {
+html {
+  height: 100vh;
+  height: -webkit-fill-available;
+  width: 100vw;
   overflow: hidden;
-  height: 100%;
-  width: 100%;
+}
+
+body {
   position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 100vh;
+  height: -webkit-fill-available;
+  width: 100vw;
+  overflow: hidden;
+  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
 }
 
 :root {
@@ -36,14 +49,14 @@ a:hover {
   color: #535bf2;
 }
 
-body {
-  margin: 0;
-  padding: 0;
-  min-width: 320px;
-  min-height: 100vh;
+#root {
+  height: 100vh;
+  height: -webkit-fill-available;
+  width: 100vw;
   display: flex;
   flex-direction: column;
-  overflow-x: hidden;
+  overflow: hidden;
+  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
 }
 
 h1 {
