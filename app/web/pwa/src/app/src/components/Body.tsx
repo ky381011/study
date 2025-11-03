@@ -7,14 +7,13 @@ interface BodyProps {
 
 const Body: React.FC<BodyProps> = ({ selected, onThemeChange }) => {
   return (
-    <main style={{ 
-        flex: 1, 
+        <main style={{ 
+        height: '80vh',
         display: 'flex', 
         justifyContent: 'center', 
         alignItems: 'center',
         width: '100%',
-        overflow: 'hidden',
-        position: 'relative'
+        background: 'inherit'
       }}>
         <select
           value={selected}

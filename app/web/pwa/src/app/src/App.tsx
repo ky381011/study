@@ -21,20 +21,55 @@ function App() {
 
   useEffect(() => {
     const current = gradients[selected];
-    document.body.style.background = current.bg;
-    document.body.style.transition = "background 0.6s ease";
+    document.documentElement.style.background = current.bg;
+    document.documentElement.style.transition = "background 0.6s ease";
+    document.body.style.background = "transparent";
     document.body.style.color = current.dark ? "#ffffff" : "#222222";
   }, [selected]);
+
+  useEffect(() => {
+    // フルスクリーン表示を試みる
+    const tryEnterFullscreen = async () => {
+      try {
+        if (document.documentElement.requestFullscreen) {
+          await document.documentElement.requestFullscreen();
+        }
+      } catch (error) {
+        console.log('Fullscreen not available');
+      }
+    };
+    
+    // 画面の向きを縦向きに固定
+    if ('orientation' in screen) {
+      const screenOrientation = (screen as any).orientation;
+      if (screenOrientation && screenOrientation.lock) {
+        screenOrientation.lock('portrait').catch(() => {
+          console.log('Orientation lock not supported');
+        });
+      }
+    }
+
+    tryEnterFullscreen();
+  }, []);
 
   return (
     <div
       style={{
-        minHeight: "100vh",
+        position: "fixed",
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "space-between",
-        width: "100%"
+        width: "100%",
+        height: "100vh",
+        minHeight: "-webkit-fill-available",
+        background: "inherit",
+        margin: 0,
+        padding: 0
       }}
     >
       <Header isDark={gradients[selected].dark} />

@@ -10,6 +10,11 @@ html {
   height: -webkit-fill-available;
   width: 100vw;
   overflow: hidden;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
 }
 
 body {
@@ -18,11 +23,12 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
-  height: 100vh;
-  height: -webkit-fill-available;
+  min-height: 100vh;
+  min-height: -webkit-fill-available;
   width: 100vw;
   overflow: hidden;
-  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+  margin: 0;
+  background: transparent !important;
 }
 
 :root {
@@ -50,13 +56,20 @@ a:hover {
 }
 
 #root {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   height: 100vh;
   height: -webkit-fill-available;
   width: 100vw;
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+  background: transparent;
+  margin: 0;
+  padding: 0
 }
 
 h1 {

@@ -10,10 +10,13 @@ const Footer: React.FC<FooterProps> = ({ isDark }) => {
       style={{
         borderTop: `1px solid ${isDark ? '#ffffff33' : '#00000033'}`,
         width: '100%',
-        height: '60px',
+        height: 'calc(10vh + env(safe-area-inset-bottom))',
         display: 'flex',
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        paddingBottom: 'env(safe-area-inset-bottom)',
+        marginBottom: '-env(safe-area-inset-bottom)',
+        background: 'inherit'
       }}
     >
     </footer>
