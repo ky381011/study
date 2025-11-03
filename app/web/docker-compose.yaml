@@ -4,6 +4,8 @@ services:
       context: ./pwa
       dockerfile: Dockerfile
     container_name: pwa_study
+    ports:
+      - "5173:5173"
     volumes:
       - type: bind
         source: ./pwa/src
