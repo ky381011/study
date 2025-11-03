@@ -1,4 +1,7 @@
 import { useState, useEffect } from "react";
+import Header from "./components/Header";
+import Body from "./components/Body";
+import Footer from "./components/Footer";
 
 function App() {
   // 背景グラデーションと明るさ分類
@@ -26,42 +29,18 @@ function App() {
   return (
     <div
       style={{
-        textAlign: "center",
         minHeight: "100vh",
         display: "flex",
         flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
       }}
     >
-      <h1>背景テーマ切り替え</h1>
-
-      <select
-        value={selected}
-        onChange={(e) => setSelected(e.target.value as keyof typeof gradients)}
-        style={{
-          fontSize: "1rem",
-          padding: "0.5rem 1rem",
-          borderRadius: "8px",
-          border: "1px solid #ccc",
-          marginTop: "1rem",
-          cursor: "pointer",
-        }}
-      >
-        <optgroup label="ライト系">
-          <option value="default">デフォルト（グレー）</option>
-          <option value="blue">ブルー</option>
-          <option value="pink">ピンク</option>
-          <option value="green">グリーン</option>
-          <option value="purple">パープル</option>
-          <option value="red">レッド</option>
-        </optgroup>
-        <optgroup label="ダーク系">
-          <option value="dark">ダーク</option>
-          <option value="midnight">ミッドナイト</option>
-          <option value="ocean">オーシャン</option>
-        </optgroup>
-      </select>
+      <Header isDark={gradients[selected].dark} />
+      <Body 
+        selected={selected}
+        onThemeChange={(theme) => setSelected(theme as keyof typeof gradients)}
+        gradients={gradients}
+      />
+      <Footer isDark={gradients[selected].dark} />
     </div>
   );
 }
