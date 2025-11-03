@@ -28,28 +28,45 @@ function App() {
   }, [selected]);
 
   useEffect(() => {
-    // フルスクリーン表示を試みる
-    const tryEnterFullscreen = async () => {
+    const setupFullscreen = async () => {
+      // iOS固有の設定
+      const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+      if (isIOS) {
+        document.documentElement.style.height = '100vh';
+        document.body.style.height = '100vh';
+        document.documentElement.style.position = 'fixed';
+      }
+
+      // スクロール防止
+      const preventScroll = (e: TouchEvent) => e.preventDefault();
+      document.addEventListener('touchmove', preventScroll, { passive: false });
+
+      // フルスクリーンモードを試みる
       try {
         if (document.documentElement.requestFullscreen) {
           await document.documentElement.requestFullscreen();
         }
       } catch (error) {
-        console.log('Fullscreen not available');
+        console.log('Fullscreen not supported');
+      }
+
+      // 画面の向きを縦向きに固定
+      if ('orientation' in screen) {
+        const screenOrientation = (screen as any).orientation;
+        if (screenOrientation && screenOrientation.lock) {
+          screenOrientation.lock('portrait').catch(() => {
+            console.log('Orientation lock not supported');
+          });
+        }
       }
     };
-    
-    // 画面の向きを縦向きに固定
-    if ('orientation' in screen) {
-      const screenOrientation = (screen as any).orientation;
-      if (screenOrientation && screenOrientation.lock) {
-        screenOrientation.lock('portrait').catch(() => {
-          console.log('Orientation lock not supported');
-        });
-      }
-    }
 
-    tryEnterFullscreen();
+    setupFullscreen();
+
+    // クリーンアップ
+    return () => {
+      document.removeEventListener('touchmove', (e: TouchEvent) => e.preventDefault());
+    };
   }, []);
 
   return (

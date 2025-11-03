@@ -2,8 +2,9 @@
   "name": "グラデーションテーマ",
   "short_name": "グラデーション",
   "description": "背景のグラデーションを切り替えられるアプリ",
-  "start_url": "/",
-  "display": "standalone",
+  "start_url": ".",
+  "scope": "/",
+  "display": "fullscreen",
   "orientation": "portrait",
   "background_color": "#000000",
   "theme_color": "#000000",
@@ -11,7 +12,8 @@
     {
       "src": "icons/react.png",
       "sizes": "180x180",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "maskable"
     }
   ]
 }
