@@ -12,7 +12,9 @@ const Body: React.FC<BodyProps> = ({ selected, onThemeChange }) => {
         display: 'flex', 
         justifyContent: 'center', 
         alignItems: 'center',
-        width: '100%'
+        width: '100%',
+        overflow: 'hidden',
+        position: 'relative'
       }}>
         <select
           value={selected}
