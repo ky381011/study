@@ -1,0 +1,10 @@
+services:
+  web:
+    build:
+      context: ./pwa
+      dockerfile: Dockerfile
+    container_name: pwa_study
+    volumes:
+      - type: bind
+        source: ./pwa/src
+        target: /app

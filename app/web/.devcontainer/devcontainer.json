@@ -1,0 +1,12 @@
+{
+  "dockerComposeFile": "../docker-compose.yaml",
+  "service": "web",
+  "workspaceFolder": "/app",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "mhutchie.git-graph"
+      ]
+    }
+  }
+}
