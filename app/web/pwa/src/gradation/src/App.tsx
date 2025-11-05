@@ -1,34 +1,39 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [backgroundColor, setBackgroundColor] = useState('#f0f0f0')
+
+  const colorOptions = [
+    { value: '#f0f0f0', label: 'ライトグレー' },
+    { value: '#ff6b6b', label: 'レッド' },
+    { value: '#4ecdc4', label: 'ティール' },
+    { value: '#45b7d1', label: 'ブルー' },
+    { value: '#96ceb4', label: 'グリーン' },
+    { value: '#feca57', label: 'イエロー' },
+    { value: '#ff9ff3', label: 'ピンク' },
+    { value: '#54a0ff', label: 'スカイブルー' },
+    { value: '#5f27cd', label: 'パープル' },
+    { value: '#222f3e', label: 'ダークグレー' }
+  ]
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className="app" style={{ backgroundColor }}>
+      <div className="control-panel">
+        <label htmlFor="color-select">背景色を選択:</label>
+        <select 
+          id="color-select"
+          value={backgroundColor} 
+          onChange={(e) => setBackgroundColor(e.target.value)}
+        >
+          {colorOptions.map((option) => (
+            <option key={option.value} value={option.value}>
+              {option.label}
+            </option>
+          ))}
+        </select>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    </div>
   )
 }
 
