@@ -27,11 +27,12 @@
   left: env(safe-area-inset-left, 0px);
   right: env(safe-area-inset-right, 0px);
   bottom: env(safe-area-inset-bottom, 0px); 
-  background-color: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 0;
+  
+  /* 上から下へのグラデーション（透明度が上がる） */
+  background: linear-gradient(to bottom, 
+    rgba(255, 255, 255, 0.1) 0%,     /* 上端：透明度10% */
+    rgba(255, 255, 255, 0.8) 100%    /* 下端：透明度80% */
+  );
   
   /* コンテンツを中央に配置 */
   display: flex;
@@ -41,7 +42,6 @@
   /* スクロール防止 */
   touch-action: none;
   overflow: hidden;
-  transition: background-color 0.3s ease;
 }
 
 /* ノッチエリアの表示 */
@@ -51,17 +51,14 @@
   left: 0;
   right: 0;
   height: env(safe-area-inset-top, 0px);
-  background-color: var(--app-background-color, #f0f0f0);
+  /* セーフエリア上端と同じ透明度で固定 */
+  background-color: rgba(255, 255, 255, 0.1);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: white;
-  font-size: 12px;
-  font-weight: bold;
   z-index: 10;
   /* セーフエリアinsetが0の場合は非表示 */
   opacity: calc(min(1, env(safe-area-inset-top, 0px) / 1px));
-  transition: background-color 0.3s ease;
 }
 
 /* インジケーターエリアの表示 */
@@ -72,14 +69,14 @@
   right: 0;
   height: env(safe-area-inset-bottom, 0px);
   min-height: 34px; /* iPhoneのホームインジケーター領域の最小高さ */
-  background-color: var(--app-background-color, #f0f0f0);
+  /* セーフエリア下端と同じ透明度で固定 */
+  background-color: rgba(255, 255, 255, 0.8);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 10;
   /* セーフエリアinsetが0の場合は非表示 */
   opacity: calc(min(1, env(safe-area-inset-bottom, 0px) / 1px));
-  transition: background-color 0.3s ease;
 }
 
 /* セーフエリア外の背景色を設定するための疑似要素 */
