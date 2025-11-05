@@ -6,6 +6,13 @@ html {
   height: 100%;
   margin: 0;
   padding: 0;
+  /* スクロールを無効化 */
+  overflow: hidden;
+  /* タッチによるスクロールを無効化 */
+  touch-action: none;
+  /* iOSでのオーバースクロール効果を無効化 */
+  -webkit-overflow-scrolling: auto;
+  overscroll-behavior: none;
 }
 
 body {
@@ -16,6 +23,16 @@ body {
   /* 最小高さをビューポート高さ + セーフエリアに設定 */
   min-height: 100vh;
   min-height: calc(100vh + env(safe-area-inset-top) + env(safe-area-inset-bottom));
+  /* スクロールを無効化 */
+  overflow: hidden;
+  /* タッチによるスクロールを無効化 */
+  touch-action: none;
+  /* iOSでのオーバースクロール効果を無効化 */
+  -webkit-overflow-scrolling: auto;
+  overscroll-behavior: none;
+  /* 高さを固定してスクロール領域を作らない */
+  height: 100vh;
+  height: calc(100vh + env(safe-area-inset-top) + env(safe-area-inset-bottom));
 }
 
 html, body, #root {

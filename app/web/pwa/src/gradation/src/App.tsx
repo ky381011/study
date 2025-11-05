@@ -3,6 +3,7 @@ import './App.css'
 
 function App() {
   const [backgroundColor, setBackgroundColor] = useState('#f0f0f0')
+  const [hasSafeArea, setHasSafeArea] = useState(false)
 
   const colorOptions = [
     { value: '#f0f0f0', label: 'ライトグレー' },
@@ -23,22 +24,96 @@ function App() {
     document.documentElement.style.backgroundColor = backgroundColor
   }, [backgroundColor])
 
+  // セーフエリアの存在をチェック
+  useEffect(() => {
+    const checkSafeArea = () => {
+      // CSSで計算した値をチェック
+      const testElement = document.createElement('div')
+      testElement.style.position = 'fixed'
+      testElement.style.top = 'env(safe-area-inset-top, 0px)'
+      testElement.style.visibility = 'hidden'
+      document.body.appendChild(testElement)
+      
+      const topOffset = testElement.offsetTop
+      document.body.removeChild(testElement)
+      
+      setHasSafeArea(topOffset > 0)
+    }
+
+    checkSafeArea()
+    // デバイス回転やサイズ変更時にも再チェック
+    window.addEventListener('resize', checkSafeArea)
+    window.addEventListener('orientationchange', checkSafeArea)
+    
+    return () => {
+      window.removeEventListener('resize', checkSafeArea)
+      window.removeEventListener('orientationchange', checkSafeArea)
+    }
+  }, [])
+
+  // スクロールとタッチムーブを完全に防止
+  useEffect(() => {
+    const preventScroll = (e: Event) => {
+      e.preventDefault()
+    }
+
+    const preventTouchMove = (e: TouchEvent) => {
+      // セーフエリアオーバーレイ内でない場合のみタッチムーブを防止
+      const target = e.target as Element
+      if (!target.closest('.safe-area-overlay')) {
+        e.preventDefault()
+      }
+    }
+
+    // 各種スクロールイベントを防止
+    document.addEventListener('wheel', preventScroll, { passive: false })
+    document.addEventListener('touchmove', preventTouchMove, { passive: false })
+    document.addEventListener('keydown', (e) => {
+      // 矢印キー、スペースキー、Page Up/Downキーによるスクロールを防止
+      if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'Space', 'PageUp', 'PageDown', 'Home', 'End'].includes(e.code)) {
+        e.preventDefault()
+      }
+    })
+
+    return () => {
+      document.removeEventListener('wheel', preventScroll)
+      document.removeEventListener('touchmove', preventTouchMove)
+    }
+  }, [])
+
   return (
     <div className="app" style={{ backgroundColor }}>
-      <div className="control-panel">
-        <label htmlFor="color-select">背景色を選択:</label>
-        <select 
-          id="color-select"
-          value={backgroundColor} 
-          onChange={(e) => setBackgroundColor(e.target.value)}
-        >
-          {colorOptions.map((option) => (
-            <option key={option.value} value={option.value}>
-              {option.label}
-            </option>
-          ))}
-        </select>
+      {/* ノッチエリア - セーフエリアがある場合のみ表示 */}
+      {hasSafeArea && (
+        <div className="notch-area">
+          NOTCH
+        </div>
+      )}
+      
+      {/* セーフエリアオーバーレイ */}
+      <div className="safe-area-overlay">
+        <div className="control-panel">
+          <label htmlFor="color-select">背景色を選択:</label>
+          <select 
+            id="color-select"
+            value={backgroundColor} 
+            onChange={(e) => setBackgroundColor(e.target.value)}
+          >
+            {colorOptions.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
+            ))}
+          </select>
+        </div>
       </div>
+      
+      {/* インジケーターエリア - セーフエリアがある場合のみ表示 */}
+      {hasSafeArea && (
+        <div className="indicator-area">
+          <div className="home-indicator"></div>
+        </div>
+      )}
     </div>
   )
 }
