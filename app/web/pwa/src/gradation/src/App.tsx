@@ -6,6 +6,15 @@ function App() {
   const [hasSafeArea, setHasSafeArea] = useState(false)
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
+  // メニューの開閉処理
+  const handleMenuToggle = () => {
+    setIsMenuOpen(!isMenuOpen)
+  }
+
+  const handleMenuClose = () => {
+    setIsMenuOpen(false)
+  }
+
   const colorOptions = [
     { value: '#f0f0f0', label: 'ライトグレー' },
     { value: '#ff6b6b', label: 'レッド' },
@@ -59,10 +68,17 @@ function App() {
     }
 
     const preventTouchMove = (e: TouchEvent) => {
-      // セーフエリアオーバーレイ内でない場合のみタッチムーブを防止
+      // メニューが開いている場合はサイドメニュー内のみタッチ操作を許可
       const target = e.target as Element
-      if (!target.closest('.main-container')) {
-        e.preventDefault()
+      if (isMenuOpen) {
+        if (!target.closest('.side-menu')) {
+          e.preventDefault()
+        }
+      } else {
+        // メニューが閉じている場合はmain-container内でのみタッチ操作を許可
+        if (!target.closest('.main-container')) {
+          e.preventDefault()
+        }
       }
     }
 
@@ -87,18 +103,29 @@ function App() {
       {/* メニューオーバーレイ */}
       <div 
         className={`menu-overlay ${isMenuOpen ? 'open' : ''}`}
-        onClick={() => setIsMenuOpen(false)}
+        onClick={handleMenuClose}
+        style={{ zIndex: isMenuOpen ? 14 : 5 }}
       ></div>
       
       {/* サイドメニュー */}
-      <div className={`side-menu ${isMenuOpen ? 'open' : ''}`}>
-        <div className="side-menu-content">
+      <div 
+        className={`side-menu ${isMenuOpen ? 'open' : ''}`}
+        style={{ zIndex: isMenuOpen ? 15 : 10 }}
+      >
+        <div className="side-menu-header">
           <h3>メニュー</h3>
+          <button 
+            className="side-menu-close"
+            onClick={handleMenuClose}
+            aria-label="メニューを閉じる"
+          ></button>
+        </div>
+        <div className="side-menu-content">
           <ul>
-            <li><a href="#" onClick={(e) => { e.preventDefault(); setIsMenuOpen(false); }}>ホーム</a></li>
-            <li><a href="#" onClick={(e) => { e.preventDefault(); setIsMenuOpen(false); }}>設定</a></li>
-            <li><a href="#" onClick={(e) => { e.preventDefault(); setIsMenuOpen(false); }}>ヘルプ</a></li>
-            <li><a href="#" onClick={(e) => { e.preventDefault(); setIsMenuOpen(false); }}>アバウト</a></li>
+            <li><a href="#" onClick={(e) => { e.preventDefault(); handleMenuClose(); }}>ホーム</a></li>
+            <li><a href="#" onClick={(e) => { e.preventDefault(); handleMenuClose(); }}>設定</a></li>
+            <li><a href="#" onClick={(e) => { e.preventDefault(); handleMenuClose(); }}>ヘルプ</a></li>
+            <li><a href="#" onClick={(e) => { e.preventDefault(); handleMenuClose(); }}>アバウト</a></li>
           </ul>
         </div>
       </div>
@@ -116,7 +143,8 @@ function App() {
           {/* ハンバーガーメニュー */}
           <div 
             className={`hamburger-menu ${isMenuOpen ? 'active' : ''}`}
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            onClick={handleMenuToggle}
+            style={{ zIndex: isMenuOpen ? 5 : 16 }}
           >
             <div className="hamburger-line"></div>
             <div className="hamburger-line"></div>

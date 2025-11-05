@@ -64,7 +64,7 @@
   padding: 5px;
   box-sizing: border-box;
   position: relative;
-  z-index: 20;
+  z-index: 16;
 }
 
 .hamburger-line {
@@ -109,8 +109,55 @@
   left: 0;
 }
 
+/* サイドメニューのヘッダー部分 */
+.side-menu-header {
+  position: relative;
+  padding: calc(env(safe-area-inset-top, 0px) + 20px) 20px 20px;
+  border-bottom: 1px solid #ddd;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* 閉じるボタン */
+.side-menu-close {
+  position: absolute;
+  top: calc(env(safe-area-inset-top, 0px) + 15px);
+  right: 15px;
+  width: 30px;
+  height: 30px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background-color 0.3s ease;
+}
+
+.side-menu-close:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.side-menu-close::before,
+.side-menu-close::after {
+  content: '';
+  position: absolute;
+  width: 16px;
+  height: 2px;
+  background-color: #333;
+  border-radius: 1px;
+}
+
+.side-menu-close::before {
+  transform: rotate(45deg);
+}
+
+.side-menu-close::after {
+  transform: rotate(-45deg);
+}
+
 .side-menu-content {
-  padding: 60px 20px 20px;
+  padding: 20px;
 }
 
 .side-menu h3 {
