@@ -20,7 +20,7 @@
 }
 
 /* セーフエリア前面の透明度が高いコンテナ */
-.safe-area-overlay {
+.main-container {
   position: absolute;
   /* ノッチの真下からインジケーターの真上まで */
   top: env(safe-area-inset-top, 0px);
@@ -34,14 +34,39 @@
     rgba(255, 255, 255, 0.8) 100%    /* 下端：透明度80% */
   );
   
-  /* コンテンツを中央に配置 */
+  /* 縦方向のフレックスレイアウト */
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column;
   
   /* スクロール防止 */
   touch-action: none;
   overflow: hidden;
+}
+
+/* 上部コンテナ - 10% */
+.top-container {
+  height: 10%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  box-sizing: border-box;
+}
+
+/* 中央コンテナ - 80% */
+.center-container {
+  height: 80%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 下部コンテナ - 10% */
+.bottom-container {
+  height: 10%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* ノッチエリアの表示 */
@@ -93,35 +118,42 @@
 
 .control-panel {
   background: rgba(255, 255, 255, 0.9);
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  max-width: 300px;
+  padding: 8px 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  max-width: 280px;
+  width: 100%;
   margin: 0;
   /* セーフエリア内に確実に配置 */
   position: relative;
   z-index: 1;
   /* コントロールパネル内ではタッチ操作を許可 */
   touch-action: manipulation;
+  /* はみ出し防止 */
+  max-height: 100%;
+  overflow: hidden;
+  box-sizing: border-box;
 }
 
 .control-panel label {
   display: block;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
   font-weight: bold;
   color: #333;
+  font-size: 14px;
 }
 
 .control-panel select {
   width: 100%;
-  padding: 10px;
+  padding: 6px 8px;
   border: 2px solid #ddd;
   border-radius: 5px;
-  font-size: 16px;
+  font-size: 14px;
   background-color: white;
   cursor: pointer;
   /* セレクトボックスでのタッチ操作を許可 */
   touch-action: manipulation;
+  box-sizing: border-box;
 }
 
 .control-panel select:focus {

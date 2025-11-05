@@ -60,7 +60,7 @@ function App() {
     const preventTouchMove = (e: TouchEvent) => {
       // セーフエリアオーバーレイ内でない場合のみタッチムーブを防止
       const target = e.target as Element
-      if (!target.closest('.safe-area-overlay')) {
+      if (!target.closest('.main-container')) {
         e.preventDefault()
       }
     }
@@ -91,24 +91,33 @@ function App() {
       )}
       
       {/* セーフエリアオーバーレイ */}
-      <div className="safe-area-overlay">
-        <div className="control-panel">
-          <label htmlFor="color-select">背景色を選択:</label>
-          <select 
-            id="color-select"
-            value={backgroundColor} 
-            onChange={(e) => setBackgroundColor(e.target.value)}
-          >
-            {colorOptions.map((option) => (
-              <option key={option.value} value={option.value}>
-                {option.label}
-              </option>
-            ))}
-          </select>
+      <div className="main-container">
+        <div className="top-container">
+          {/* 上部コンテナ - 10% */}
+          <div className="control-panel">
+            <label htmlFor="color-select">背景色を選択:</label>
+            <select 
+              id="color-select"
+              value={backgroundColor} 
+              onChange={(e) => setBackgroundColor(e.target.value)}
+            >
+              {colorOptions.map((option) => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
-      </div>
-      
-      {/* インジケーターエリア - セーフエリアがある場合のみ表示 */}
+        
+        <div className="center-container">
+          {/* 中央コンテナ - 80% */}
+        </div>
+        
+        <div className="bottom-container">
+          {/* 下部コンテナ - 10% */}
+        </div>
+      </div>      {/* インジケーターエリア - セーフエリアがある場合のみ表示 */}
       {hasSafeArea && (
         <div className="indicator-area">
           <div className="home-indicator"></div>
