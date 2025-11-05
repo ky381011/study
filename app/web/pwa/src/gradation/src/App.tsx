@@ -4,6 +4,7 @@ import './App.css'
 function App() {
   const [backgroundColor, setBackgroundColor] = useState('#f0f0f0')
   const [hasSafeArea, setHasSafeArea] = useState(false)
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   const colorOptions = [
     { value: '#f0f0f0', label: 'ライトグレー' },
@@ -83,6 +84,25 @@ function App() {
 
   return (
     <div className="app" style={{ backgroundColor }}>
+      {/* メニューオーバーレイ */}
+      <div 
+        className={`menu-overlay ${isMenuOpen ? 'open' : ''}`}
+        onClick={() => setIsMenuOpen(false)}
+      ></div>
+      
+      {/* サイドメニュー */}
+      <div className={`side-menu ${isMenuOpen ? 'open' : ''}`}>
+        <div className="side-menu-content">
+          <h3>メニュー</h3>
+          <ul>
+            <li><a href="#" onClick={(e) => { e.preventDefault(); setIsMenuOpen(false); }}>ホーム</a></li>
+            <li><a href="#" onClick={(e) => { e.preventDefault(); setIsMenuOpen(false); }}>設定</a></li>
+            <li><a href="#" onClick={(e) => { e.preventDefault(); setIsMenuOpen(false); }}>ヘルプ</a></li>
+            <li><a href="#" onClick={(e) => { e.preventDefault(); setIsMenuOpen(false); }}>アバウト</a></li>
+          </ul>
+        </div>
+      </div>
+      
       {/* ノッチエリア - セーフエリアがある場合のみ表示 */}
       {hasSafeArea && (
         <div className="notch-area">
@@ -93,7 +113,17 @@ function App() {
       {/* セーフエリアオーバーレイ */}
       <div className="main-container">
         <div className="top-container">
-          {/* 上部コンテナ - 10% */}
+          {/* ハンバーガーメニュー */}
+          <div 
+            className={`hamburger-menu ${isMenuOpen ? 'active' : ''}`}
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+          >
+            <div className="hamburger-line"></div>
+            <div className="hamburger-line"></div>
+            <div className="hamburger-line"></div>
+          </div>
+          
+          {/* プルダウンメニュー */}
           <div className="control-panel">
             <label htmlFor="color-select">背景色を選択:</label>
             <select 
@@ -108,6 +138,9 @@ function App() {
               ))}
             </select>
           </div>
+          
+          {/* 右側の空きスペース */}
+          <div style={{ width: '30px' }}></div>
         </div>
         
         <div className="center-container">
