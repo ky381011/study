@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './App.css'
 
 function App() {
@@ -16,6 +16,12 @@ function App() {
     { value: '#5f27cd', label: 'パープル' },
     { value: '#222f3e', label: 'ダークグレー' }
   ]
+
+  // 背景色が変更されたときにHTML要素の背景色も更新
+  useEffect(() => {
+    document.documentElement.style.setProperty('--app-background-color', backgroundColor)
+    document.documentElement.style.backgroundColor = backgroundColor
+  }, [backgroundColor])
 
   return (
     <div className="app" style={{ backgroundColor }}>

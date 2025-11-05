@@ -1,7 +1,21 @@
 /* index.css */
+html {
+  /* セーフエリア外の背景色を設定（iOSのセーフエリア対応） */
+  background-color: var(--app-background-color, #f0f0f0);
+  /* セーフエリア外も含めて高さを確保 */
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
 body {
   margin: 0;
   padding: 0;
+  /* セーフエリア外の背景色を継承 */
+  background-color: inherit;
+  /* 最小高さをビューポート高さ + セーフエリアに設定 */
+  min-height: 100vh;
+  min-height: calc(100vh + env(safe-area-inset-top) + env(safe-area-inset-bottom));
 }
 
 html, body, #root {

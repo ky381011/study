@@ -1,11 +1,29 @@
 /* App.css */
 .app {
+  /* セーフエリアを含む全体の高さを確保 */
   min-height: 100vh;
+  min-height: calc(100vh + env(safe-area-inset-top) + env(safe-area-inset-bottom));
   width: 100vw;
   margin: 0;
-  padding: 20px;
+  /* セーフエリアに応じてパディングを調整 */
+  padding: calc(20px + env(safe-area-inset-top)) calc(20px + env(safe-area-inset-right)) calc(20px + env(safe-area-inset-bottom)) calc(20px + env(safe-area-inset-left));
   box-sizing: border-box;
   transition: background-color 0.3s ease;
+  
+  /* セーフエリア外の背景色も同じ色に設定 */
+  position: relative;
+}
+
+/* セーフエリア外の背景色を設定するための疑似要素 */
+.app::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: inherit;
+  z-index: -1;
 }
 
 .control-panel {
@@ -15,6 +33,9 @@
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   max-width: 300px;
   margin: 0 auto;
+  /* セーフエリア内に確実に配置 */
+  position: relative;
+  z-index: 1;
 }
 
 .control-panel label {
