@@ -26,14 +26,6 @@ const SideMenu: React.FC<SideMenuProps> = ({ isMenuOpen, backgroundColor, onClos
             rgba(255, 255, 255, 0.8) 100%), ${backgroundColor}`
         }}
       >
-        <div className="side-menu-header">
-          <h3>メニュー</h3>
-          <button 
-            className="side-menu-close"
-            onClick={onClose}
-            aria-label="メニューを閉じる"
-          ></button>
-        </div>
         <div className="side-menu-content">
           <ul>
             <li><a href="#" onClick={(e) => { e.preventDefault(); onClose(); }}>ホーム</a></li>
