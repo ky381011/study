@@ -1,5 +1,22 @@
 import { useState, useEffect } from 'react'
 import './App.css'
+import SideMenu from './components/SideMenu'
+import SafeAreaDisplay from './components/SafeAreaDisplay'
+import MainContainer from './components/MainContainer'
+
+// 色のオプション
+const colorOptions = [
+  { value: '#f0f0f0', label: 'ライトグレー' },
+  { value: '#ff6b6b', label: 'レッド' },
+  { value: '#4ecdc4', label: 'ティール' },
+  { value: '#45b7d1', label: 'ブルー' },
+  { value: '#f9ca24', label: 'イエロー' },
+  { value: '#f0932b', label: 'オレンジ' },
+  { value: '#eb4d4b', label: 'クリムゾン' },
+  { value: '#6c5ce7', label: 'パープル' },
+  { value: '#2d3436', label: 'ダークグレー' },
+  { value: '#00b894', label: 'グリーン' }
+]
 
 function App() {
   const [backgroundColor, setBackgroundColor] = useState('#f0f0f0')
@@ -15,18 +32,9 @@ function App() {
     setIsMenuOpen(false)
   }
 
-  const colorOptions = [
-    { value: '#f0f0f0', label: 'ライトグレー' },
-    { value: '#ff6b6b', label: 'レッド' },
-    { value: '#4ecdc4', label: 'ティール' },
-    { value: '#45b7d1', label: 'ブルー' },
-    { value: '#96ceb4', label: 'グリーン' },
-    { value: '#feca57', label: 'イエロー' },
-    { value: '#ff9ff3', label: 'ピンク' },
-    { value: '#54a0ff', label: 'スカイブルー' },
-    { value: '#5f27cd', label: 'パープル' },
-    { value: '#222f3e', label: 'ダークグレー' }
-  ]
+  const handleColorChange = (color: string) => {
+    setBackgroundColor(color)
+  }
 
   // 背景色が変更されたときにHTML要素の背景色も更新
   useEffect(() => {
@@ -96,99 +104,25 @@ function App() {
       document.removeEventListener('wheel', preventScroll)
       document.removeEventListener('touchmove', preventTouchMove)
     }
-  }, [])
+  }, [isMenuOpen])
 
   return (
     <div className="app" style={{ backgroundColor }}>
-      {/* メニューオーバーレイ */}
-      <div 
-        className={`menu-overlay ${isMenuOpen ? 'open' : ''}`}
-        onClick={handleMenuClose}
-        style={{ zIndex: isMenuOpen ? 14 : 5 }}
-      ></div>
+      <SideMenu 
+        isMenuOpen={isMenuOpen} 
+        backgroundColor={backgroundColor} 
+        onClose={handleMenuClose} 
+      />
       
-      {/* サイドメニュー */}
-      <div 
-        className={`side-menu ${isMenuOpen ? 'open' : ''}`}
-        style={{ 
-          zIndex: isMenuOpen ? 15 : 10,
-          background: `linear-gradient(to bottom, 
-            rgba(255, 255, 255, 0.1) 0%, 
-            rgba(255, 255, 255, 0.8) 100%), ${backgroundColor}`
-        }}
-      >
-        <div className="side-menu-header">
-          <h3>メニュー</h3>
-          <button 
-            className="side-menu-close"
-            onClick={handleMenuClose}
-            aria-label="メニューを閉じる"
-          ></button>
-        </div>
-        <div className="side-menu-content">
-          <ul>
-            <li><a href="#" onClick={(e) => { e.preventDefault(); handleMenuClose(); }}>ホーム</a></li>
-            <li><a href="#" onClick={(e) => { e.preventDefault(); handleMenuClose(); }}>設定</a></li>
-            <li><a href="#" onClick={(e) => { e.preventDefault(); handleMenuClose(); }}>ヘルプ</a></li>
-            <li><a href="#" onClick={(e) => { e.preventDefault(); handleMenuClose(); }}>アバウト</a></li>
-          </ul>
-        </div>
-      </div>
+      <SafeAreaDisplay hasSafeArea={hasSafeArea} />
       
-      {/* ノッチエリア - セーフエリアがある場合のみ表示 */}
-      {hasSafeArea && (
-        <div className="notch-area">
-          NOTCH
-        </div>
-      )}
-      
-      {/* セーフエリアオーバーレイ */}
-      <div className="main-container">
-        <div className="top-container">
-          {/* ハンバーガーメニュー */}
-          <div 
-            className={`hamburger-menu ${isMenuOpen ? 'active' : ''}`}
-            onClick={handleMenuToggle}
-            style={{ zIndex: isMenuOpen ? 5 : 16 }}
-          >
-            <div className="hamburger-line"></div>
-            <div className="hamburger-line"></div>
-            <div className="hamburger-line"></div>
-          </div>
-          
-          {/* プルダウンメニュー */}
-          <div className="control-panel">
-            <label htmlFor="color-select">背景色を選択:</label>
-            <select 
-              id="color-select"
-              value={backgroundColor} 
-              onChange={(e) => setBackgroundColor(e.target.value)}
-            >
-              {colorOptions.map((option) => (
-                <option key={option.value} value={option.value}>
-                  {option.label}
-                </option>
-              ))}
-            </select>
-          </div>
-          
-          {/* 右側の空きスペース */}
-          <div style={{ width: '30px' }}></div>
-        </div>
-        
-        <div className="center-container">
-          {/* 中央コンテナ - 80% */}
-        </div>
-        
-        <div className="bottom-container">
-          {/* 下部コンテナ - 10% */}
-        </div>
-      </div>      {/* インジケーターエリア - セーフエリアがある場合のみ表示 */}
-      {hasSafeArea && (
-        <div className="indicator-area">
-          <div className="home-indicator"></div>
-        </div>
-      )}
+      <MainContainer 
+        isMenuOpen={isMenuOpen} 
+        backgroundColor={backgroundColor} 
+        onMenuToggle={handleMenuToggle} 
+        onColorChange={handleColorChange} 
+        colorOptions={colorOptions}
+      />
     </div>
   )
 }
