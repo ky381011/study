@@ -19,7 +19,7 @@ const colorOptions = [
 ]
 
 function App() {
-  const [backgroundColor, setBackgroundColor] = useState('#f0f0f0')
+  const [backgroundColor, setBackgroundColor] = useState('')
   const [hasSafeArea, setHasSafeArea] = useState(false)
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
@@ -38,8 +38,9 @@ function App() {
 
   // 背景色が変更されたときにHTML要素の背景色も更新
   useEffect(() => {
-    document.documentElement.style.setProperty('--app-background-color', backgroundColor)
-    document.documentElement.style.backgroundColor = backgroundColor
+    const finalColor = backgroundColor || '#f0f0f0'
+    document.documentElement.style.setProperty('--app-background-color', finalColor)
+    document.documentElement.style.backgroundColor = finalColor
   }, [backgroundColor])
 
   // セーフエリアの存在をチェック
@@ -107,10 +108,10 @@ function App() {
   }, [isMenuOpen])
 
   return (
-    <div className="app" style={{ backgroundColor }}>
+    <div className="app" style={{ backgroundColor: backgroundColor || '#f0f0f0' }}>
       <SideMenu 
         isMenuOpen={isMenuOpen} 
-        backgroundColor={backgroundColor} 
+        backgroundColor={backgroundColor || '#f0f0f0'} 
         onClose={handleMenuClose} 
       />
       
@@ -118,7 +119,7 @@ function App() {
       
       <MainContainer 
         isMenuOpen={isMenuOpen} 
-        backgroundColor={backgroundColor} 
+        backgroundColor={backgroundColor || '#f0f0f0'} 
         onMenuToggle={handleMenuToggle} 
         onColorChange={handleColorChange} 
         colorOptions={colorOptions}

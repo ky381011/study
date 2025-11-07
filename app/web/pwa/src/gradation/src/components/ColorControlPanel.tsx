@@ -13,12 +13,12 @@ const ColorControlPanel: React.FC<ColorControlPanelProps> = ({
 }) => {
   return (
     <div className="control-panel">
-      <label htmlFor="color-select">背景色を選択:</label>
       <select 
         id="color-select"
         value={backgroundColor} 
         onChange={(e) => onColorChange(e.target.value)}
       >
+        <option value="" disabled>背景色を選択</option>
         {colorOptions.map((option) => (
           <option key={option.value} value={option.value}>
             {option.label}
