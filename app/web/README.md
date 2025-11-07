@@ -9,3 +9,7 @@ Ref. => [URL](https://zenn.dev/yoshihiro_tada/articles/9c245bccde260c)
     - Use rolldown-vite (Experimental)? = No
     - Install with npm and start now? =  No
 3. Run ordered command
+
+## Development environment
+Docker container  
+- Base Image : `node:latest`
