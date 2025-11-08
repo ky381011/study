@@ -12,8 +12,8 @@ const ColorControlPanel: React.FC<ColorControlPanelProps> = ({
   colorOptions
 }) => {
   const [isExpanded, setIsExpanded] = React.useState(false)
-  const currentColor = backgroundColor || 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
-  const currentColorLabel = colorOptions.find(option => option.value === backgroundColor)?.label || 'パープル・ブルー'
+  const currentColor = backgroundColor || 'linear-gradient(to bottom, #667eea 0%, #764ba2 50%, #1a1a2e 100%)'
+  const currentColorLabel = colorOptions.find(option => option.value === backgroundColor)?.label || 'ブルー・パープル・ダーク'
 
   // 背景色が変更されたときに展開状態をリセット
   React.useEffect(() => {

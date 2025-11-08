@@ -1,7 +1,7 @@
 /* index.css */
 html {
   /* セーフエリア外の背景色を設定（iOSのセーフエリア対応） */
-  background: var(--app-background-color, linear-gradient(135deg, #667eea 0%, #764ba2 100%));
+  background: var(--app-background-color, linear-gradient(to bottom, #667eea 0%, #764ba2 50%, #1a1a2e 100%));
   /* セーフエリア外も含めて高さを確保 */
   height: 100%;
   margin: 0;

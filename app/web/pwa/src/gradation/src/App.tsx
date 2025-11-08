@@ -4,22 +4,22 @@ import SideMenu from './components/SideMenu'
 import SafeAreaDisplay from './components/SafeAreaDisplay'
 import MainContainer from './components/MainContainer'
 
-// 二色グラデーションのオプション
+// グラデーションのオプション（上から下の縦方向、一部3色グラデーション）
 const colorOptions = [
-  { value: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', label: 'パープル・ブルー' },
-  { value: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)', label: 'ピンク・コーラル' },
-  { value: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)', label: 'ブルー・シアン' },
-  { value: 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)', label: 'グリーン・ターコイズ' },
-  { value: 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)', label: 'ピンク・イエロー' },
-  { value: 'linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)', label: 'ミント・ピンク' },
-  { value: 'linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%)', label: 'コーラル・ラベンダー' },
-  { value: 'linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%)', label: 'クリーム・オレンジ' },
-  { value: 'linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%)', label: 'パープル・ピンク' },
-  { value: 'linear-gradient(135deg, #fad0c4 0%, #ffd1ff 100%)', label: 'ピーチ・ラベンダー' }
+  { value: 'linear-gradient(to bottom, #667eea 0%, #764ba2 50%, #1a1a2e 100%)', label: 'ブルー・パープル・ダーク' },
+  { value: 'linear-gradient(to bottom, #f093fb 0%, #8b0000 100%)', label: 'ピンク・ダークレッド' },
+  { value: 'linear-gradient(to bottom, #4facfe 0%, #00d2ff 50%, #000080 100%)', label: 'スカイ・シアン・ネイビー' },
+  { value: 'linear-gradient(to bottom, #43e97b 0%, #003d00 100%)', label: 'グリーン・ダークグリーン' },
+  { value: 'linear-gradient(to bottom, #fa709a 0%, #ff9a56 50%, #ff6600 100%)', label: 'ピンク・コーラル・オレンジ' },
+  { value: 'linear-gradient(to bottom, #00c9ff 0%, #92fe9d 50%, #ff006e 100%)', label: 'シアン・グリーン・マゼンタ' },
+  { value: 'linear-gradient(to bottom, #ff6a88 0%, #4a0080 100%)', label: 'コーラル・パープル' },
+  { value: 'linear-gradient(to bottom, #ffff00 0%, #ff4500 50%, #8b0000 100%)', label: 'イエロー・オレンジ・レッド' },
+  { value: 'linear-gradient(to bottom, #8e2de2 0%, #4a00e0 50%, #000000 100%)', label: 'パープル・インディゴ・ブラック' },
+  { value: 'linear-gradient(to bottom, #ff4081 0%, #1a237e 100%)', label: 'ピンク・インディゴ' }
 ]
 
 function App() {
-  const [backgroundColor, setBackgroundColor] = useState('linear-gradient(135deg, #667eea 0%, #764ba2 100%)')
+  const [backgroundColor, setBackgroundColor] = useState('linear-gradient(to bottom, #667eea 0%, #764ba2 50%, #1a1a2e 100%)')
   const [hasSafeArea, setHasSafeArea] = useState(false)
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
@@ -38,7 +38,7 @@ function App() {
 
   // 背景色が変更されたときにHTML要素の背景色も更新
   useEffect(() => {
-    const finalColor = backgroundColor || 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
+    const finalColor = backgroundColor || 'linear-gradient(to bottom, #667eea 0%, #764ba2 50%, #1a1a2e 100%)'
     document.documentElement.style.setProperty('--app-background-color', finalColor)
     document.documentElement.style.background = finalColor
   }, [backgroundColor])
@@ -108,10 +108,10 @@ function App() {
   }, [isMenuOpen])
 
   return (
-    <div className="app" style={{ background: backgroundColor || 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' }}>
+    <div className="app" style={{ background: backgroundColor || 'linear-gradient(to bottom, #667eea 0%, #764ba2 50%, #1a1a2e 100%)' }}>
       <SideMenu 
         isMenuOpen={isMenuOpen} 
-        backgroundColor={backgroundColor || 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'} 
+        backgroundColor={backgroundColor || 'linear-gradient(to bottom, #667eea 0%, #764ba2 50%, #1a1a2e 100%)'} 
         onClose={handleMenuClose}
         onColorChange={handleColorChange}
         colorOptions={colorOptions}
