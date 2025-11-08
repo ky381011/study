@@ -121,10 +121,7 @@ function App() {
       
       <MainContainer 
         isMenuOpen={isMenuOpen} 
-        backgroundColor={backgroundColor || '#f0f0f0'} 
         onMenuToggle={handleMenuToggle} 
-        onColorChange={handleColorChange} 
-        colorOptions={colorOptions}
       />
     </div>
   )

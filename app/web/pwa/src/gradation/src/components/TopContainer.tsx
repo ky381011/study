@@ -1,21 +1,14 @@
 import React from 'react'
 import HamburgerMenu from './HamburgerMenu'
-import ColorControlPanel from './ColorControlPanel'
 
 interface TopContainerProps {
   isMenuOpen: boolean
-  backgroundColor: string
   onMenuToggle: () => void
-  onColorChange: (color: string) => void
-  colorOptions: { value: string; label: string }[]
 }
 
 const TopContainer: React.FC<TopContainerProps> = ({ 
   isMenuOpen, 
-  backgroundColor, 
-  onMenuToggle, 
-  onColorChange,
-  colorOptions
+  onMenuToggle
 }) => {
   return (
     <div className="top-container">
@@ -24,11 +17,8 @@ const TopContainer: React.FC<TopContainerProps> = ({
         onToggle={onMenuToggle} 
       />
       
-      <ColorControlPanel 
-        backgroundColor={backgroundColor} 
-        onColorChange={onColorChange}
-        colorOptions={colorOptions}
-      />
+      {/* 中央の空きスペース */}
+      <div style={{ flex: 1 }}></div>
       
       {/* 右側の空きスペース */}
       <div style={{ width: '30px' }}></div>
