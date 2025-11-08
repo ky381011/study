@@ -12,8 +12,8 @@ const ColorControlPanel: React.FC<ColorControlPanelProps> = ({
   colorOptions
 }) => {
   const [isExpanded, setIsExpanded] = React.useState(false)
-  const currentColor = backgroundColor || '#f0f0f0'
-  const currentColorLabel = colorOptions.find(option => option.value === backgroundColor)?.label || 'ライトグレー'
+  const currentColor = backgroundColor || 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
+  const currentColorLabel = colorOptions.find(option => option.value === backgroundColor)?.label || 'パープル・ブルー'
 
   // 背景色が変更されたときに展開状態をリセット
   React.useEffect(() => {
@@ -53,7 +53,7 @@ const ColorControlPanel: React.FC<ColorControlPanelProps> = ({
         <div className="current-color-container">
           <div
             className="color-circle current-color"
-            style={{ backgroundColor: currentColor }}
+            style={{ background: currentColor }}
             onClick={handleCurrentColorClick}
             title={`${currentColorLabel} - クリックで色を変更`}
           />
@@ -66,7 +66,7 @@ const ColorControlPanel: React.FC<ColorControlPanelProps> = ({
               <div
                 key={option.value}
                 className={`color-circle ${backgroundColor === option.value ? 'selected' : ''}`}
-                style={{ backgroundColor: option.value }}
+                style={{ background: option.value }}
                 onClick={() => handleColorSelect(option.value)}
                 title={option.label}
               />

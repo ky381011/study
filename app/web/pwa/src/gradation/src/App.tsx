@@ -4,22 +4,22 @@ import SideMenu from './components/SideMenu'
 import SafeAreaDisplay from './components/SafeAreaDisplay'
 import MainContainer from './components/MainContainer'
 
-// 色のオプション
+// 二色グラデーションのオプション
 const colorOptions = [
-  { value: '#f0f0f0', label: 'ライトグレー' },
-  { value: '#ff6b6b', label: 'レッド' },
-  { value: '#4ecdc4', label: 'ティール' },
-  { value: '#45b7d1', label: 'ブルー' },
-  { value: '#f9ca24', label: 'イエロー' },
-  { value: '#f0932b', label: 'オレンジ' },
-  { value: '#eb4d4b', label: 'クリムゾン' },
-  { value: '#6c5ce7', label: 'パープル' },
-  { value: '#2d3436', label: 'ダークグレー' },
-  { value: '#00b894', label: 'グリーン' }
+  { value: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', label: 'パープル・ブルー' },
+  { value: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)', label: 'ピンク・コーラル' },
+  { value: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)', label: 'ブルー・シアン' },
+  { value: 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)', label: 'グリーン・ターコイズ' },
+  { value: 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)', label: 'ピンク・イエロー' },
+  { value: 'linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)', label: 'ミント・ピンク' },
+  { value: 'linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%)', label: 'コーラル・ラベンダー' },
+  { value: 'linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%)', label: 'クリーム・オレンジ' },
+  { value: 'linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%)', label: 'パープル・ピンク' },
+  { value: 'linear-gradient(135deg, #fad0c4 0%, #ffd1ff 100%)', label: 'ピーチ・ラベンダー' }
 ]
 
 function App() {
-  const [backgroundColor, setBackgroundColor] = useState('')
+  const [backgroundColor, setBackgroundColor] = useState('linear-gradient(135deg, #667eea 0%, #764ba2 100%)')
   const [hasSafeArea, setHasSafeArea] = useState(false)
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
@@ -38,9 +38,9 @@ function App() {
 
   // 背景色が変更されたときにHTML要素の背景色も更新
   useEffect(() => {
-    const finalColor = backgroundColor || '#f0f0f0'
+    const finalColor = backgroundColor || 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
     document.documentElement.style.setProperty('--app-background-color', finalColor)
-    document.documentElement.style.backgroundColor = finalColor
+    document.documentElement.style.background = finalColor
   }, [backgroundColor])
 
   // セーフエリアの存在をチェック
@@ -108,10 +108,10 @@ function App() {
   }, [isMenuOpen])
 
   return (
-    <div className="app" style={{ backgroundColor: backgroundColor || '#f0f0f0' }}>
+    <div className="app" style={{ background: backgroundColor || 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' }}>
       <SideMenu 
         isMenuOpen={isMenuOpen} 
-        backgroundColor={backgroundColor || '#f0f0f0'} 
+        backgroundColor={backgroundColor || 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'} 
         onClose={handleMenuClose}
         onColorChange={handleColorChange}
         colorOptions={colorOptions}

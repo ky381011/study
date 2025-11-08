@@ -30,9 +30,7 @@ const SideMenu: React.FC<SideMenuProps> = ({
         className={`side-menu ${isMenuOpen ? 'open' : ''}`}
         style={{ 
           zIndex: isMenuOpen ? 15 : 10,
-          background: `linear-gradient(to bottom, 
-            rgba(255, 255, 255, 0.1) 0%, 
-            rgba(255, 255, 255, 0.8) 100%), ${backgroundColor}`
+          background: backgroundColor
         }}
       >
         <div className="side-menu-content">
