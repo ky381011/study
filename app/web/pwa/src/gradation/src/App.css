@@ -133,8 +133,23 @@
   height: 28px;
 }
 
+.side-menu-color-control .color-circle.current-color {
+  width: 32px;
+  height: 32px;
+}
+
 .side-menu-color-control .color-options {
   gap: 8px;
+}
+
+.side-menu-color-control .color-options.expanded {
+  position: relative;
+  top: 0;
+  left: 0;
+  transform: none;
+  min-width: auto;
+  width: 80%;
+  margin: 0 auto;
 }
 
 .side-menu h3 {
@@ -258,7 +273,7 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   max-width: 200px;
   width: 100%;
-  margin: 0;
+  margin: 0 auto;
   /* セーフエリア内に確実に配置 */
   position: relative;
   z-index: 1;
@@ -303,25 +318,69 @@
   display: flex;
   flex-direction: column;
   gap: 8px;
+  position: relative;
 }
 
-.color-placeholder {
-  font-size: 12px;
-  color: #666;
-  text-align: center;
-  padding: 4px;
+.current-color-container {
+  display: flex;
+  justify-content: center;
+}
+
+.color-circle.current-color {
+  width: 28px;
+  height: 28px;
+  border: 3px solid rgba(255, 255, 255, 0.8);
+  position: relative;
+}
+
+.color-circle.current-color:after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 8px;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 50%;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.6);
+  border: 1px solid rgba(0, 0, 0, 0.2);
 }
 
 .color-options {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
+  gap: 3px;
   justify-content: center;
 }
 
+.color-options.expanded {
+  background: rgba(255, 255, 255, 0.95);
+  padding: 6px;
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  position: absolute;
+  top: 40px;
+  left: calc(50% - 50px);
+  z-index: 100;
+  width: 100px;
+  animation: expandIn 0.2s ease-out;
+}
+
+@keyframes expandIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
 .color-circle {
-  width: 24px;
-  height: 24px;
+  width: 20px;
+  height: 20px;
   border-radius: 50%;
   cursor: pointer;
   border: 2px solid rgba(255, 255, 255, 0.3);
@@ -336,6 +395,19 @@
 
 .color-circle.selected {
   border: 3px solid #4ecdc4;
-  transform: scale(1.2);
+  transform: scale(1.1);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  position: relative;
+}
+
+.color-circle.selected:after {
+  content: '✓';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #4ecdc4;
+  font-size: 10px;
+  font-weight: bold;
+  text-shadow: 0 0 2px rgba(255, 255, 255, 0.8);
 }
