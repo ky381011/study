@@ -1,12 +1,21 @@
 import React from 'react'
+import ColorControlPanel from './ColorControlPanel'
 
 interface SideMenuProps {
   isMenuOpen: boolean
   backgroundColor: string
   onClose: () => void
+  onColorChange: (color: string) => void
+  colorOptions: { value: string; label: string }[]
 }
 
-const SideMenu: React.FC<SideMenuProps> = ({ isMenuOpen, backgroundColor, onClose }) => {
+const SideMenu: React.FC<SideMenuProps> = ({ 
+  isMenuOpen, 
+  backgroundColor, 
+  onClose,
+  onColorChange,
+  colorOptions
+}) => {
   return (
     <>
       {/* メニューオーバーレイ */}
@@ -33,6 +42,14 @@ const SideMenu: React.FC<SideMenuProps> = ({ isMenuOpen, backgroundColor, onClos
             <li><a href="#" onClick={(e) => { e.preventDefault(); onClose(); }}>ヘルプ</a></li>
             <li><a href="#" onClick={(e) => { e.preventDefault(); onClose(); }}>アバウト</a></li>
           </ul>
+          
+          <div className="side-menu-color-control">
+            <ColorControlPanel 
+              backgroundColor={backgroundColor}
+              onColorChange={onColorChange}
+              colorOptions={colorOptions}
+            />
+          </div>
         </div>
       </div>
     </>

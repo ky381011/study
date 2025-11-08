@@ -112,7 +112,9 @@ function App() {
       <SideMenu 
         isMenuOpen={isMenuOpen} 
         backgroundColor={backgroundColor || '#f0f0f0'} 
-        onClose={handleMenuClose} 
+        onClose={handleMenuClose}
+        onColorChange={handleColorChange}
+        colorOptions={colorOptions}
       />
       
       <SafeAreaDisplay hasSafeArea={hasSafeArea} />

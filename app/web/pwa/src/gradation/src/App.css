@@ -111,6 +111,27 @@
 
 .side-menu-content {
   padding: calc(env(safe-area-inset-top, 0px) + 20px) 20px 20px;
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - calc(env(safe-area-inset-top, 0px) + 40px));
+  box-sizing: border-box;
+}
+
+.side-menu-color-control {
+  margin-top: auto;
+  padding-top: 20px;
+  border-top: 1px solid #ddd;
+}
+
+.side-menu-color-control .control-panel {
+  max-width: 100%;
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.side-menu-color-control .control-panel select {
+  font-size: 14px;
+  height: 32px;
+  padding: 6px 8px;
 }
 
 .side-menu h3 {
