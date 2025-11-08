@@ -13,18 +13,22 @@ const ColorControlPanel: React.FC<ColorControlPanelProps> = ({
 }) => {
   return (
     <div className="control-panel">
-      <select 
-        id="color-select"
-        value={backgroundColor} 
-        onChange={(e) => onColorChange(e.target.value)}
-      >
-        <option value="" disabled>背景色を選択</option>
-        {colorOptions.map((option) => (
-          <option key={option.value} value={option.value}>
-            {option.label}
-          </option>
-        ))}
-      </select>
+      <div className="color-selector">
+        {!backgroundColor && (
+          <div className="color-placeholder">色を選択</div>
+        )}
+        <div className="color-options">
+          {colorOptions.map((option) => (
+            <div
+              key={option.value}
+              className={`color-circle ${backgroundColor === option.value ? 'selected' : ''}`}
+              style={{ backgroundColor: option.value }}
+              onClick={() => onColorChange(option.value)}
+              title={option.label}
+            />
+          ))}
+        </div>
+      </div>
     </div>
   )
 }

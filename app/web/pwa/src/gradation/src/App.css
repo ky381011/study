@@ -128,10 +128,13 @@
   background: rgba(255, 255, 255, 0.7);
 }
 
-.side-menu-color-control .control-panel select {
-  font-size: 14px;
-  height: 32px;
-  padding: 6px 8px;
+.side-menu-color-control .color-circle {
+  width: 28px;
+  height: 28px;
+}
+
+.side-menu-color-control .color-options {
+  gap: 8px;
 }
 
 .side-menu h3 {
@@ -293,4 +296,46 @@
 .control-panel select:focus {
   outline: none;
   border-color: #4ecdc4;
+}
+
+/* カラーセレクター */
+.color-selector {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.color-placeholder {
+  font-size: 12px;
+  color: #666;
+  text-align: center;
+  padding: 4px;
+}
+
+.color-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  justify-content: center;
+}
+
+.color-circle {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.color-circle:hover {
+  transform: scale(1.1);
+  border-color: rgba(255, 255, 255, 0.8);
+}
+
+.color-circle.selected {
+  border: 3px solid #4ecdc4;
+  transform: scale(1.2);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
